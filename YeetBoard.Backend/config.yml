@@ -1,0 +1,16 @@
+# Board Configuration
+columns:
+  - id: 1
+    name: ToDo
+    color: orange
+
+  - id: 2
+    name: In Progress
+    color: lightskyblue
+
+  - id: 3
+    name: Done
+    color: limegreen
+
+# Server Configuration
+port: 9000
