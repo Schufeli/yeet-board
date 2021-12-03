@@ -6,8 +6,6 @@ const app = new _application();
 const router = new _router();
 await loadConfig('./config.yml');
 
-console.log(configuration);
-
 router.get('/', (context: _context) => {
     context.response.body = 'Load Frontend here!'; // TODO: load frontend project here
 })
