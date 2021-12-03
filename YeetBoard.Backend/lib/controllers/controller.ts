@@ -1,6 +1,7 @@
 import { Repository } from '../repositories/repository.ts';
 import { _context } from '../../deps.ts';
 import { Card } from '../classes/card.ts';
+import { configuration } from '../classes/config.ts';
 
 const cardRepository = new Repository();
 
@@ -29,4 +30,8 @@ export const updateCard = async ({ request, response }: { request: any; response
 export const deleteCard = ({ params, response }: { params: { id: string }; response: any }) => {
     cardRepository.delete(params.id);
     response.status = 200;
+}
+
+export const getColumns = ({ response }: { response: any }) => {
+    response.body = configuration.columns;
 }
