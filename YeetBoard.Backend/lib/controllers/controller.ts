@@ -1,5 +1,5 @@
 import { Repository } from '../repositories/repository.ts';
-import { _context } from '../../deps.ts';
+import { _context, _uuid } from '../../deps.ts';
 import { Card } from '../classes/card.ts';
 import { configuration } from '../classes/config.ts';
 
@@ -15,6 +15,7 @@ export const getCardById = ({ params, response }: { params: { id: string }; resp
 
 export const createCard = async ({ request, response }: { request: any; response: any }) => {
     const card: Card = await request.body().value;
+    card.id = _uuid.generate();
     cardRepository.add(card);
     response.status = 201;
     response.body = card;
