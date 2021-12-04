@@ -3,7 +3,7 @@ body{
     font-family: 'Open Sans', sans-serif;
 
 }
-h1, h2{
+h1, h2, .title, .content{
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -13,10 +13,13 @@ h1, h2{
 }
 
 body > div{
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 body .container-fluid h1{
-    margin: 30px 10px;
+    padding: 10px 10px;
+    background: #ffffff96;
+    border: solid 0.5px transparent;
+    border-radius: 9px;
 }
 
 body .container-fluid .row .cards-body{
@@ -74,17 +77,32 @@ body .container-fluid .row .cards-body .card .icon-wrapper{
 }
 
 body .container-fluid .row .cards-body .card .icon-wrapper .icon{
-    width: 20px;
+    width: 25px;
+    padding: 0 5px;
 }
 body .container-fluid .row .cards-body .card .icon-wrapper a{
     pointer-events: all;
+    cursor: pointer;
+    border: 0.5px solid transparent;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+body .container-fluid .row .cards-body .card .icon-wrapper a:hover{
+    background-color: rgba(255, 255, 255, 0.616);
 }
 body .container-fluid .row .cards-body .card .icon-wrapper .icon img{
-    width: 14px;
+    width: 15px;
 }
 body .container-fluid .row .cards-body .card .icon-wrapper .left-icon.icon img{
-    width: 10px;
+    width: 14px;
 }
 body .container-fluid .row .cards-body .card .icon-wrapper .right-icon.icon img{
-    width: 10px;
+    width: 14px;
+}
+body .container-fluid .row .cards-body div .add-icon.icon img{
+    width: 25px;
+}
+body .container-fluid .row .cards-body div.add-wrapper{
+    display: flex;
+    justify-content: center;
 }
