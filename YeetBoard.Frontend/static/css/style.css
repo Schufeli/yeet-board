@@ -1,3 +1,5 @@
+
+/* Normal changes for Frontend */
 body{
     background-color: #8a8abd;
     font-family: 'Open Sans', sans-serif;
@@ -11,17 +13,17 @@ h1, h2, .title, .content{
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none;
 }
-
 body > div{
     margin-top: 1rem;
 }
+
+/* Cards Wrapper and Cards Style */
 body .container-fluid h1{
     padding: 10px 10px;
     background: #ffffff96;
     border: solid 0.5px transparent;
     border-radius: 9px;
 }
-
 body .container-fluid .row .cards-body{
     background-color: white;
     /* width: 33%; */
@@ -30,30 +32,24 @@ body .container-fluid .row .cards-body{
     border: solid 1px;
     border-radius: 10px;
 }
-
 body .container-fluid .row .cards-body .card, 
 body .container-fluid .row .cards-body h2{
     width: 90%;
     margin: 10px auto;    
 }
-
 body .container-fluid .row .cards-body .card{
     background-color: #e9e9e9;
     min-height: 100px;
 }
-
 body .container-fluid .row #toDo.cards-body .card{
     background-color: #ff000047;
 }
-
 body .container-fluid .row #inProgress.cards-body .card{
     background-color: #ffff0059;
 }
-
 body .container-fluid .row #done.cards-body .card{
     background-color: #00800047;
 }
-
 body .container-fluid .row .cards-body .card p{
     margin-top: 10px;
     margin-left: 15px;
@@ -69,13 +65,16 @@ body .container-fluid .row .cards-body .card .title{
     font-weight: bold;
 }
 
+
+
+/* Icons for Frontend */
+
 body .container-fluid .row .cards-body .card .icon-wrapper{
     position: absolute;
     display: flex;
     right: 10px;
     top: 5px;
 }
-
 body .container-fluid .row .cards-body .card .icon-wrapper .icon{
     width: 25px;
     padding: 0 5px;
