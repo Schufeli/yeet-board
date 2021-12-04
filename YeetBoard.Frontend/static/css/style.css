@@ -21,7 +21,7 @@ body > div{
 body .container-fluid h1{
     padding: 10px 10px;
     background: #ffffff96;
-    border: solid 0.5px transparent;
+    border: solid 1px #00c0ff;
     border-radius: 9px;
 }
 body .container-fluid .row .cards-body{
@@ -29,7 +29,7 @@ body .container-fluid .row .cards-body{
     /* width: 33%; */
     min-height: 30vh;
     padding: 10px 0;
-    border: solid 1px;
+    border: solid 1px #00c0ff;
     border-radius: 10px;
 }
 body .container-fluid .row .cards-body .card, 
