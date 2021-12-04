@@ -80,7 +80,8 @@ body .container-fluid .row .cards-body .card .icon-wrapper .icon{
     width: 25px;
     padding: 0 5px;
 }
-body .container-fluid .row .cards-body .card .icon-wrapper a{
+body .container-fluid .row .cards-body .card .icon-wrapper a,
+body .container-fluid .row .cards-body div.add-wrapper a{
     pointer-events: all;
     cursor: pointer;
     border: 0.5px solid transparent;
