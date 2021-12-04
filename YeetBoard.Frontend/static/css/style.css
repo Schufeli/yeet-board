@@ -96,6 +96,12 @@ body .container-fluid .row .cards-body .card .icon-wrapper .icon img{
 body .container-fluid .row .cards-body .card .icon-wrapper .left-icon.icon img{
     width: 14px;
 }
+body .container-fluid .row #toDo.cards-body .card .icon-wrapper .left-icon.icon {
+    display: none;
+}
+body .container-fluid .row #done.cards-body .card .icon-wrapper .right-icon.icon {
+    display: none;
+}
 body .container-fluid .row .cards-body .card .icon-wrapper .right-icon.icon img{
     width: 14px;
 }
