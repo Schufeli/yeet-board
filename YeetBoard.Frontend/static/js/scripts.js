@@ -1,5 +1,10 @@
 'use strict';
 
+
+// call Main Taks Render Function
+renderTasks();
+
+// Redner the Layout of the Task
 function rednerTaskLayout(task) {
     return`
         <div class="card">
@@ -21,6 +26,7 @@ function rednerTaskLayout(task) {
     ;
 }
 
+// get Tasks from Api
 async function getTasks() {
     const url = '/cards';
     try {
@@ -30,13 +36,14 @@ async function getTasks() {
         console.log(error);
     }
 }
+
+// Render logic aspect of the Task with Sections
 async function renderTasks() {
     const Tasks = await getTasks();
     let todoHtml = '';
     let htmlInProgress = '';
     let htmlDone = '';
     Tasks.forEach(task => {
-        console.log(task.column);
         if (task.column == 1) {
             const htmlTodoSegment = rednerTaskLayout(task);
             todoHtml += htmlTodoSegment;            
@@ -50,13 +57,15 @@ async function renderTasks() {
             htmlDone += htmlDoneSegment;            
         }
     });  
-    const toDoContainer = document.getElementById('toDo')
-    toDoContainer.innerHTML = todoHtml;
-    const inProgressContainer = document.getElementById('inProgress')
-    inProgressContainer.innerHTML = htmlInProgress;
-    const doneContainer = document.getElementById('done')
-    doneContainer.appen = htmlDone;
+
+
+    const toDoContainer = document.getElementById('toDo');
+    toDoContainer.insertAdjacentHTML('beforeend', todoHtml);
+
+    const inProgressContainer = document.getElementById('inProgress');
+    inProgressContainer.insertAdjacentHTML('beforeend',htmlInProgress);
+
+    const doneContainer = document.getElementById('done');
+    doneContainer.insertAdjacentHTML('beforeend',htmlDone);
 }
 
-
-renderTasks();
