@@ -56,8 +56,7 @@ async function renderTasks() {
             const htmlDoneSegment = rednerTaskLayout(task);
             htmlDone += htmlDoneSegment;            
         }
-    });  
-
+    });
 
     const toDoContainer = document.getElementById('toDo');
     toDoContainer.insertAdjacentHTML('beforeend', todoHtml);
