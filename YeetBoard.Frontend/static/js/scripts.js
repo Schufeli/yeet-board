@@ -1,29 +1,25 @@
 'use strict';
 
-let text = "";
-let htmlCard = 
-    `<div class="card">
-        <div class="icon-wrapper">
-            <a class="left-icon icon">
-                <img src="static/assets/chevron-left-solid.svg" />
-            </a>
-            <a class="right-icon icon">
-                <img src="static/assets/chevron-right-solid.svg" />
-            </a>
-            <a class="trash-icon icon">
-                <img src="static/assets/trash-solid.svg" />
-            </a>
-        </div>
-        <div class="title">
-            <p>${ text }</p>
-        </div>
-    </div>`;
-fetch('/cards')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .then({
-      
-  });
+function rednerTaskLayout(task) {
+    return`
+        <div class="card">
+            <div class="icon-wrapper">
+                <a class="left-icon icon">
+                    <img src="static/assets/chevron-left-solid.svg" />
+                </a>
+                <a class="right-icon icon">
+                    <img src="static/assets/chevron-right-solid.svg" />
+                </a>
+                <a class="trash-icon icon">
+                    <img src="static/assets/trash-solid.svg" />
+                </a>
+            </div>
+            <div class="title" data-id="${task.id}" data-section="${task.column}"">
+                <p>${ task.text }</p>
+            </div>
+        </div>`
+    ;
+}
 
 async function getTasks() {
     const url = '/cards';
@@ -42,63 +38,15 @@ async function renderTasks() {
     Tasks.forEach(task => {
         console.log(task.column);
         if (task.column == 1) {
-            let htmlTodoSegment = `
-                <div class="card">
-                    <div class="icon-wrapper">
-                        <a class="left-icon icon">
-                            <img src="static/assets/chevron-left-solid.svg" />
-                        </a>
-                        <a class="right-icon icon">
-                            <img src="static/assets/chevron-right-solid.svg" />
-                        </a>
-                        <a class="trash-icon icon">
-                            <img src="static/assets/trash-solid.svg" />
-                        </a>
-                    </div>
-                    <div class="title" data-id="${task.id}" data-section="${task.column}"">
-                        <p>${ task.text }</p>
-                    </div>
-                </div>`;
+            const htmlTodoSegment = rednerTaskLayout(task);
             todoHtml += htmlTodoSegment;            
         }
         if (task.column == 2) {
-            let htmlInProgressSegment = `
-                <div class="card">
-                    <div class="icon-wrapper">
-                        <a class="left-icon icon">
-                            <img src="static/assets/chevron-left-solid.svg" />
-                        </a>
-                        <a class="right-icon icon">
-                            <img src="static/assets/chevron-right-solid.svg" />
-                        </a>
-                        <a class="trash-icon icon">
-                            <img src="static/assets/trash-solid.svg" />
-                        </a>
-                    </div>
-                    <div class="title" data-id="${task.id}" data-section="${task.column}"">
-                        <p>${ task.text }</p>
-                    </div>
-                </div>`;
+            const htmlInProgressSegment = rednerTaskLayout(task);
             htmlInProgress += htmlInProgressSegment;            
         }
         if (task.column == 3) {
-            let htmlDoneSegment = `
-                <div class="card">
-                    <div class="icon-wrapper">
-                        <a class="left-icon icon">
-                            <img src="static/assets/chevron-left-solid.svg" />
-                        </a>
-                        <a class="right-icon icon">
-                            <img src="static/assets/chevron-right-solid.svg" />
-                        </a>
-                        <a class="trash-icon icon">
-                            <img src="static/assets/trash-solid.svg" />
-                        </a>
-                    </div>
-                    <div class="title" data-id="${task.id}" data-section="${task.column}"">
-                        <p>${ task.text }</p>
-                    </div>
-                </div>`;
+            const htmlDoneSegment = rednerTaskLayout(task);
             htmlDone += htmlDoneSegment;            
         }
     });  
@@ -107,6 +55,8 @@ async function renderTasks() {
     const inProgressContainer = document.getElementById('inProgress')
     inProgressContainer.innerHTML = htmlInProgress;
     const doneContainer = document.getElementById('done')
-    doneContainer.innerHTML = htmlDone;
+    doneContainer.appen = htmlDone;
 }
+
+
 renderTasks();
