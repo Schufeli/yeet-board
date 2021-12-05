@@ -68,3 +68,10 @@ async function renderTasks() {
     doneContainer.insertAdjacentHTML('beforeend',htmlDone);
 }
 
+
+
+//TODO Delete Card
+
+//TODO Move Left Card
+
+//TODO Move Right Card
