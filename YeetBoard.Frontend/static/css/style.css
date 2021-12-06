@@ -5,6 +5,10 @@ body{
     font-family: 'Open Sans', sans-serif;
 
 }
+input.form-control:focus[readonly]:focus{
+    box-shadow: none;
+    border: none;
+}
 h1, h2, .title, .content{
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -65,10 +69,7 @@ body .container-fluid .row .cards-body .card .title{
     font-weight: bold;
 }
 
-
-
 /* Icons for Frontend */
-
 body .container-fluid .row .cards-body .card .icon-wrapper{
     position: absolute;
     display: flex;

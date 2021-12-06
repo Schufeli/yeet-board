@@ -14,6 +14,12 @@ setInterval(() => {
     }
 }, 500);
 
+// const addButtons = document.getElementsByClassName('add-icon');
+// for (let i = 0; i < addButtons.length; i++) {
+//     const addButton = addButtons[i];
+//     addButton.addEventListener('click', addCard)
+// }
+
 // call Main Taks Render Function
 renderTasks();
 
@@ -160,3 +166,20 @@ function moveRight() {
     const nextPosition = currentPositon++;
     updateCard(this, nextPosition, currentText);
 }
+
+//jquery for Modal 
+$('#taskModal').on('show.bs.modal', function (event) {
+  const button = $(event.relatedTarget);
+  const state = button.data('state');
+  const modal = $(this);
+  modal.find('.modal-title').text('New Task for ' + state);
+  modal.find('.modal-body input').val(state);
+});
+
+$('#taskModal #save').on('click', function() {
+    const title = $('#taskModal').children('#title-text');
+    console.log(title.text());
+    console.log(title);
+    const column ='';
+    $('#taskModal').modal('hide');
+});
