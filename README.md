@@ -1,3 +1,4 @@
+[![Deno Tests](https://github.com/Schufeli/yeet-board/actions/workflows/main.yml/badge.svg)](https://github.com/Schufeli/yeet-board/actions/workflows/main.yml)
 # Yeet Board
 Kanban Board Project for M133$
 

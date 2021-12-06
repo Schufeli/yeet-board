@@ -22,4 +22,4 @@ jobs:
         with:
           deno-version: ${{ matrix.deno-version }}
       - name: Testing Deno Module
-        run: deno test --allow-none
+        run: deno test --allow-none --no-check
