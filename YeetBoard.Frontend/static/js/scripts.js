@@ -113,15 +113,14 @@ function updateCard(el, position, text) {
     const uuid = getUuid(el);
     const data = `
         {
-            'id': '${uuid}',
-            'text': '${text}',
-            'column': ${position}
+            "id": "${uuid}",
+            "text": "${text}",
+            "column": ${parseInt(position)}
         }
     `;
-    console.log(data);
     fetch(`/cards`, { 
             method: 'PUT',
-            body: data
+            body: JSON.parse(data)
         })
         .then(async response => {
             const isJson = response.headers.get('content-type')?.includes('application/json');
@@ -143,7 +142,7 @@ function updateCard(el, position, text) {
 function getUuid(el) {
     return el.closest(".card").querySelector(".title").getAttribute("data-id");
 }
-// Getting current position from Object Data
+// Getting current position from Object Data returns 1, 2 or 3
 function getCurrentPosition(el) {
     return el.closest(".card").querySelector(".title").getAttribute("data-section");
 }
@@ -154,16 +153,16 @@ function getCurrentText(el) {
 }
 //Move Left function for Card
 function moveLeft() {
-    let currentPositon = getCurrentPosition(this);
+    const currentPositon = parseInt(getCurrentPosition(this));
     const currentText = getCurrentText(this);
-    const nextPosition = currentPositon--;
+    const nextPosition = currentPositon - 1;
     updateCard(this, nextPosition, currentText);
 }
 //Move Right function for Card
 function moveRight() {
-    let currentPositon = getCurrentPosition(this);
+    const currentPositon = parseInt(getCurrentPosition(this));
     const currentText = getCurrentText(this);
-    const nextPosition = currentPositon++;
+    const nextPosition = currentPositon + 1;
     updateCard(this, nextPosition, currentText);
 }
 
