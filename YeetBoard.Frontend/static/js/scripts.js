@@ -33,7 +33,7 @@ async function getTasks() {
         const res = await fetch(url);
         return await res.json();
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -43,6 +43,12 @@ async function renderTasks() {
     let todoHtml = '';
     let htmlInProgress = '';
     let htmlDone = '';
+    const toDoContainer = document.getElementById('toDo');
+    toDoContainer.innerHTML = "";
+    const inProgressContainer = document.getElementById('inProgress');
+    inProgressContainer.innerHTML = "";
+    const doneContainer = document.getElementById('done');
+    doneContainer.innerHTML = "";
     Tasks.forEach(task => {
         if (task.column == 1) {
             const htmlTodoSegment = rednerTaskLayout(task);
@@ -57,18 +63,12 @@ async function renderTasks() {
             htmlDone += htmlDoneSegment;            
         }
     });
-
-    const toDoContainer = document.getElementById('toDo');
     toDoContainer.insertAdjacentHTML('beforeend', todoHtml);
-
-    const inProgressContainer = document.getElementById('inProgress');
     inProgressContainer.insertAdjacentHTML('beforeend',htmlInProgress);
-
-    const doneContainer = document.getElementById('done');
     doneContainer.insertAdjacentHTML('beforeend',htmlDone);
 }
 
-setTimeout(() => {
+setInterval(() => {
     const cards = document.getElementsByClassName('trash-icon');
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i];
@@ -78,12 +78,31 @@ setTimeout(() => {
 
 //TODO Delete Card
 function deleteCard() {
+    const uuid = getUuid(this);
+    fetch(`/cards/${ uuid }`, { method: 'DELETE' })
+        .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson && await response.json();
 
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+            renderTasks();
+            console.error('Delete successful');
+        })
+        .catch(error => {
+            // element.parentElement.innerHTML = `Error: ${error}`;
+            console.error('There was an error!', error);
+        });
     console.log(getUuid(this));
 }
 function getUuid(el) {
     return el.closest(".card").querySelector(".title").getAttribute("data-id");
 }
+
 //TODO Move Left Card
 
 //TODO Move Right Card
