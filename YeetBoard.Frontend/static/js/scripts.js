@@ -15,7 +15,7 @@ function rednerTaskLayout(task) {
                 <a class="right-icon icon">
                     <img src="static/assets/chevron-right-solid.svg" />
                 </a>
-                <a class="trash-icon icon">
+                <a class="trash-icon icon" onclick="deleteCard">
                     <img src="static/assets/trash-solid.svg" />
                 </a>
             </div>
@@ -68,10 +68,22 @@ async function renderTasks() {
     doneContainer.insertAdjacentHTML('beforeend',htmlDone);
 }
 
-
+setTimeout(() => {
+    const cards = document.getElementsByClassName('trash-icon');
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        card.addEventListener('click', deleteCard)
+    }
+}, 500);
 
 //TODO Delete Card
+function deleteCard() {
 
+    console.log(getUuid(this));
+}
+function getUuid(el) {
+    return el.closest(".card").querySelector(".title").getAttribute("data-id");
+}
 //TODO Move Left Card
 
 //TODO Move Right Card
