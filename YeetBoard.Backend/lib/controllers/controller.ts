@@ -23,9 +23,14 @@ export const createCard = async ({ request, response }: { request: any; response
 
 export const updateCard = async ({ request, response }: { request: any; response: any }) => {
     const card: Card = await request.body().value;
-    cardRepository.update(card);
-    response.status = 200;
-    response.body = card;
+    if (cardRepository.find(card.id) !== undefined) {
+        cardRepository.update(card);
+        response.status = 200;
+        response.body = card;
+    }
+    else {
+        response.status = 404;
+    }
 }
 
 export const deleteCard = ({ params, response }: { params: { id: string }; response: any }) => {
