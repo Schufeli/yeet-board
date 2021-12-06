@@ -23,6 +23,7 @@ export const createCard = async ({ request, response }: { request: any; response
 
 export const updateCard = async ({ request, response }: { request: any; response: any }) => {
     const card: Card = await request.body().value;
+    console.log(card)
     cardRepository.update(card);
     response.status = 200;
     response.body = card;

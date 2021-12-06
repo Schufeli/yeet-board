@@ -1,5 +1,18 @@
 'use strict';
 
+// set interval to add event listener everytime
+setInterval(() => {
+    const cards = document.getElementsByClassName('card');
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        const trashIcon = card.querySelector(".trash-icon")
+        const leftIcon = card.querySelector(".left-icon")
+        const rightIcon = card.querySelector(".right-icon")
+        trashIcon.addEventListener('click', deleteCard)
+        leftIcon.addEventListener('click', moveLeft)
+        rightIcon.addEventListener('click', moveRight)
+    }
+}, 500);
 
 // call Main Taks Render Function
 renderTasks();
@@ -68,41 +81,82 @@ async function renderTasks() {
     doneContainer.insertAdjacentHTML('beforeend',htmlDone);
 }
 
-setInterval(() => {
-    const cards = document.getElementsByClassName('trash-icon');
-    for (let i = 0; i < cards.length; i++) {
-        const card = cards[i];
-        card.addEventListener('click', deleteCard)
-    }
-}, 500);
-
-//TODO Delete Card
+//Delete Card with uuid and render tasks again
 function deleteCard() {
     const uuid = getUuid(this);
     fetch(`/cards/${ uuid }`, { method: 'DELETE' })
         .then(async response => {
             const isJson = response.headers.get('content-type')?.includes('application/json');
             const data = isJson && await response.json();
-
-            // check for error response
             if (!response.ok) {
-                // get error message from body or default to response status
                 const error = (data && data.message) || response.status;
                 return Promise.reject(error);
             }
             renderTasks();
-            console.error('Delete successful');
+            // TODO give User some Info that it deleted successfully
+            console.log('Delete successful');
         })
         .catch(error => {
-            // element.parentElement.innerHTML = `Error: ${error}`;
-            console.error('There was an error!', error);
+            // TODO give User some Info that it deleted not correctly
+            console.error('There was an error with the Request!', error);
         });
-    console.log(getUuid(this));
 }
+
+// TODO: Update Card / function that you can call for almoust everything. Update text and position
+function updateCard(el, position, text) {
+    const uuid = getUuid(el);
+    const data = `
+        {
+            'id': '${uuid}',
+            'text': '${text}',
+            'column': ${position}
+        }
+    `;
+    console.log(data);
+    fetch(`/cards`, { 
+            method: 'PUT',
+            body: data
+        })
+        .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson && await response.json();
+            if (!response.ok) {
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+            renderTasks();
+            // TODO give User some Info that it deleted successfully
+            console.log('Updated successful');
+        })
+        .catch(error => {
+            // TODO give User some Info that it deleted not correctly
+            console.error('There was an error with the Request!', error);
+        });
+}
+// Getting UUID from Object Data
 function getUuid(el) {
     return el.closest(".card").querySelector(".title").getAttribute("data-id");
 }
-
-//TODO Move Left Card
-
-//TODO Move Right Card
+// Getting current position from Object Data
+function getCurrentPosition(el) {
+    return el.closest(".card").querySelector(".title").getAttribute("data-section");
+}
+// Getting current text (non html) from Object Data
+function getCurrentText(el) {
+    console.log(el.closest(".card").querySelector(".title").innerText);
+    return el.closest(".card").querySelector(".title").innerText;
+}
+//Move Left function for Card
+function moveLeft() {
+    let currentPositon = getCurrentPosition(this);
+    const currentText = getCurrentText(this);
+    const nextPosition = currentPositon--;
+    updateCard(this, nextPosition, currentText);
+}
+//Move Right function for Card
+function moveRight() {
+    let currentPositon = getCurrentPosition(this);
+    const currentText = getCurrentText(this);
+    const nextPosition = currentPositon++;
+    updateCard(this, nextPosition, currentText);
+}
