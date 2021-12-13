@@ -118,6 +118,7 @@ function updateCard(el, position, text) {
             "column": ${parseInt(position)}
         }
     `;
+    console.log(data);
     fetch(`/cards`, { 
             method: 'PUT',
             body: JSON.parse(data)
@@ -165,6 +166,35 @@ function moveRight() {
     const nextPosition = currentPositon + 1;
     updateCard(this, nextPosition, currentText);
 }
+function addCard(uuid, text, position) {
+     const data = {
+        id: "1",
+        text: "Yeet",
+        column: 1
+    };
+    // console.log(JSON.parse(data));
+    fetch(`/cards`, {
+            method: 'POST',
+            body: JSON.stringify(data)
+        })
+        .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson && await response.json();
+            if (!response.ok) {
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+            renderTasks();
+            // TODO give User some Info that it deleted successfully
+            console.log('Card added successful');
+        })
+        .catch(error => {
+            // TODO give User some Info that it deleted not correctly
+            console.error('There was an error with the Request!', error);
+        });
+}
+
+
 
 //jquery for Modal 
 $('#taskModal').on('show.bs.modal', function (event) {
@@ -176,9 +206,11 @@ $('#taskModal').on('show.bs.modal', function (event) {
 });
 
 $('#taskModal #save').on('click', function() {
-    const title = $('#taskModal').children('#title-text');
+    addCard(1, "asd", 3);
+    renderTasks();
+    const title = $('#taskModal').find('#state-name');
     console.log(title.text());
     console.log(title);
-    const column ='';
+    // const column ='';
     $('#taskModal').modal('hide');
 });
