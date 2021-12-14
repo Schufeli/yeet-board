@@ -14,12 +14,6 @@ setInterval(() => {
     }
 }, 500);
 
-// const addButtons = document.getElementsByClassName('add-icon');
-// for (let i = 0; i < addButtons.length; i++) {
-//     const addButton = addButtons[i];
-//     addButton.addEventListener('click', addCard)
-// }
-
 // call Main Taks Render Function
 renderTasks();
 
@@ -100,7 +94,6 @@ function deleteCard() {
             }
             renderTasks();
             // TODO give User some Info that it deleted successfully
-            console.log('Delete successful');
         })
         .catch(error => {
             // TODO give User some Info that it deleted not correctly
@@ -111,17 +104,17 @@ function deleteCard() {
 // TODO: Update Card / function that you can call for almoust everything. Update text and position
 function updateCard(el, position, text) {
     const uuid = getUuid(el);
-    const data = `
-        {
-            "id": "${uuid}",
-            "text": "${text}",
-            "column": ${parseInt(position)}
-        }
-    `;
-    console.log(data);
+    const data = {
+        id: uuid,
+        text: text,
+        column: position
+    };
     fetch(`/cards`, { 
-            method: 'PUT',
-            body: JSON.parse(data)
+            method: 'PUt',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         })
         .then(async response => {
             const isJson = response.headers.get('content-type')?.includes('application/json');
@@ -132,7 +125,6 @@ function updateCard(el, position, text) {
             }
             renderTasks();
             // TODO give User some Info that it deleted successfully
-            console.log('Updated successful');
         })
         .catch(error => {
             // TODO give User some Info that it deleted not correctly
@@ -149,7 +141,6 @@ function getCurrentPosition(el) {
 }
 // Getting current text (non html) from Object Data
 function getCurrentText(el) {
-    console.log(el.closest(".card").querySelector(".title").innerText);
     return el.closest(".card").querySelector(".title").innerText;
 }
 //Move Left function for Card
@@ -168,13 +159,15 @@ function moveRight() {
 }
 function addCard(uuid, text, position) {
      const data = {
-        id: "1",
-        text: "Yeet",
-        column: 1
+        id: uuid,
+        text: text,
+        column: position
     };
-    // console.log(JSON.parse(data));
     fetch(`/cards`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
         .then(async response => {
@@ -186,14 +179,12 @@ function addCard(uuid, text, position) {
             }
             renderTasks();
             // TODO give User some Info that it deleted successfully
-            console.log('Card added successful');
         })
         .catch(error => {
             // TODO give User some Info that it deleted not correctly
             console.error('There was an error with the Request!', error);
         });
 }
-
 
 
 //jquery for Modal 
@@ -206,11 +197,22 @@ $('#taskModal').on('show.bs.modal', function (event) {
 });
 
 $('#taskModal #save').on('click', function() {
-    addCard(1, "asd", 3);
     renderTasks();
-    const title = $('#taskModal').find('#state-name');
-    console.log(title.text());
-    console.log(title);
-    // const column ='';
+    const title = $('#taskModal').find('#state-name').val();
+    const text = $('#taskModal').find('#title-text').val();
+    let position = 0;
+    switch (title) {
+        case 'ToDo':
+            position = 1;
+            break;
+        case 'In Progress':
+            position = 2;
+            break;
+        case 'Done':
+            position = 3;
+            break;
+    }
+    addCard(1, text, position);
+    $('#taskModal').find('#title-text').val('');
     $('#taskModal').modal('hide');
 });
