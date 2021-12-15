@@ -15,18 +15,38 @@ setInterval(() => {
 }, 500);
 
 // call Main Kanban Render Function
-rednerKanbanLayout();
+renderKanban();
 
 function renderKanban() {
-    const kanbanLayout = getColumns();
-    console.log(kanbanLayout);
+
 }
-renderKanban();
+
 // call Main Taks Render Function
 renderTasks();
 
-// Redner the Layout of the Task
-function rednerKanbanLayout(kanban) {
+// Render logic aspect of the Task with Sections
+async function renderBoard() {
+    const Board = await getColumns();
+    const boardParent = document.getElementById('kanbanBoard');
+    Board.forEach(board => {
+        if (board.id == 1) {
+            const htmlTodoSegment = renderTaskLayout(board);
+            todoHtml += htmlTodoSegment;            
+        }
+        if (board.id == 2) {
+            const htmlInProgressSegment = renderTaskLayout(board);
+            htmlInProgress += htmlInProgressSegment;            
+        }
+        if (board.id == 3) {
+            const htmlDoneSegment = renderTaskLayout(board);
+            htmlDone += htmlDoneSegment;            
+        }
+    });
+    boardParent.insertAdjacentHTML('beforeend', todoHtml);
+}
+
+// Render the Layout of the Board
+function renderKanbanLsayout(kanban) {
     // ToDo change this when backend not implemented ID for HTML
     kanbanId = kanban.name;
     return`
@@ -45,8 +65,8 @@ function rednerKanbanLayout(kanban) {
     ;
 }
 
-// Redner the Layout of the Task
-function rednerTaskLayout(task) {
+// Render the Layout of the Task
+function renderTaskLayout(task) {
     return`
         <div class="card">
             <div class="icon-wrapper">
@@ -103,15 +123,15 @@ async function renderTasks() {
     doneContainer.innerHTML = "";
     Tasks.forEach(task => {
         if (task.column == 1) {
-            const htmlTodoSegment = rednerTaskLayout(task);
+            const htmlTodoSegment = renderTaskLayout(task);
             todoHtml += htmlTodoSegment;            
         }
         if (task.column == 2) {
-            const htmlInProgressSegment = rednerTaskLayout(task);
+            const htmlInProgressSegment = renderTaskLayout(task);
             htmlInProgress += htmlInProgressSegment;            
         }
         if (task.column == 3) {
-            const htmlDoneSegment = rednerTaskLayout(task);
+            const htmlDoneSegment = renderTaskLayout(task);
             htmlDone += htmlDoneSegment;            
         }
     });
@@ -196,6 +216,7 @@ function moveRight() {
     const nextPosition = currentPositon + 1;
     updateCard(this, nextPosition, currentText);
 }
+
 function addCard(uuid, text, position) {
      const data = {
         id: uuid,
@@ -224,7 +245,6 @@ function addCard(uuid, text, position) {
             console.error('There was an error with the Request!', error);
         });
 }
-
 
 //jquery for Modal 
 $('#taskModal').on('show.bs.modal', function (event) {
