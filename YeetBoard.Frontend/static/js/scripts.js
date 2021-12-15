@@ -14,8 +14,34 @@ setInterval(() => {
     }
 }, 500);
 
+// call Main Kanban Render Function
+rednerKanbanLayout();
+
+function renderKanban() {
+    const kanbanLayout = getColumns();
+    console.log(kanbanLayout);
+}
+renderKanban();
 // call Main Taks Render Function
 renderTasks();
+
+// Redner the Layout of the Task
+function rednerKanbanLayout(kanban) {
+    return`
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="cards-body">
+                <div id="toDo">
+                    <h2>ToDo</h2>
+                </div>
+                <div class="add-wrapper">
+                    <a class="add-icon icon" data-toggle="modal" data-target="#taskModal" data-state="ToDo">
+                        <img src="static/assets/plus-circle-solid.svg" />
+                    </a>
+                </div>
+            </div>
+        </div>`
+    ;
+}
 
 // Redner the Layout of the Task
 function rednerTaskLayout(task) {
@@ -37,6 +63,17 @@ function rednerTaskLayout(task) {
             </div>
         </div>`
     ;
+}
+
+// get Tasks from Api
+async function getColumns() {
+    const url = '/columns';
+    try {
+        const res = await fetch(url);
+        return await res.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 // get Tasks from Api
