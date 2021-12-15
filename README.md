@@ -4,4 +4,5 @@ Kanban Board Project for M133$
 
 ## Run project
 *need to be run in repo root*
+
 ``` deno run --allow-net --allow-read mod.ts ```
