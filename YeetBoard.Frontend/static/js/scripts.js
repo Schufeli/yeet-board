@@ -47,6 +47,7 @@ async function renderBoard() {
 // Render the Layout of the Board
 function renderKanbanLayout(kanban) {
     // ToDo change this when backend not implemented ID for HTML
+    console.log(kanban);
     return`
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="cards-body">
