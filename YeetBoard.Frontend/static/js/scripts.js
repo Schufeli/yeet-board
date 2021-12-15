@@ -27,14 +27,16 @@ renderTasks();
 
 // Redner the Layout of the Task
 function rednerKanbanLayout(kanban) {
+    // ToDo change this when backend not implemented ID for HTML
+    kanbanId = kanban.name;
     return`
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="cards-body">
-                <div id="toDo">
-                    <h2>ToDo</h2>
+                <div id="${kanbanId}">
+                    <h2>${kanban.name}</h2>
                 </div>
                 <div class="add-wrapper">
-                    <a class="add-icon icon" data-toggle="modal" data-target="#taskModal" data-state="ToDo">
+                    <a class="add-icon icon" data-toggle="modal" data-target="#taskModal" data-state="${kanban.name}">
                         <img src="static/assets/plus-circle-solid.svg" />
                     </a>
                 </div>
