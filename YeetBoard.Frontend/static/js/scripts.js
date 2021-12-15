@@ -15,45 +15,43 @@ setInterval(() => {
 }, 500);
 
 // call Main Kanban Render Function
-renderKanban();
+renderBoard();
 
-function renderKanban() {
-
-}
 
 // call Main Taks Render Function
 renderTasks();
 
 // Render logic aspect of the Task with Sections
 async function renderBoard() {
-    const Board = await getColumns();
+    const Boards = await getColumns();
     const boardParent = document.getElementById('kanbanBoard');
-    Board.forEach(board => {
+    let boardKanban = '';
+    console.log(Boards);
+    Boards.forEach(board => {
         if (board.id == 1) {
-            const htmlTodoSegment = renderTaskLayout(board);
-            todoHtml += htmlTodoSegment;            
+            const name = renderKanbanLayout(board);
+            boardKanban += name;            
         }
         if (board.id == 2) {
-            const htmlInProgressSegment = renderTaskLayout(board);
-            htmlInProgress += htmlInProgressSegment;            
+            const name = renderKanbanLayout(board);
+            boardKanban += name;            
         }
         if (board.id == 3) {
-            const htmlDoneSegment = renderTaskLayout(board);
-            htmlDone += htmlDoneSegment;            
+            const name = renderKanbanLayout(board);
+            boardKanban += name;            
         }
     });
-    boardParent.insertAdjacentHTML('beforeend', todoHtml);
+    boardParent.insertAdjacentHTML('beforeend', boardKanban);
 }
 
 // Render the Layout of the Board
-function renderKanbanLsayout(kanban) {
+function renderKanbanLayout(kanban) {
     // ToDo change this when backend not implemented ID for HTML
-    kanbanId = kanban.name;
     return`
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="cards-body">
-                <div id="${kanbanId}">
-                    <h2>${kanban.name}</h2>
+                <div id="${kanban.htmlID}">
+                    <h2>"${kanban.name}"</h2>
                 </div>
                 <div class="add-wrapper">
                     <a class="add-icon icon" data-toggle="modal" data-target="#taskModal" data-state="${kanban.name}">
@@ -87,7 +85,7 @@ function renderTaskLayout(task) {
     ;
 }
 
-// get Tasks from Api
+// get Columns from Api
 async function getColumns() {
     const url = '/columns';
     try {

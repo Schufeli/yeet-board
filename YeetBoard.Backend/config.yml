@@ -3,14 +3,17 @@ columns:
   - id: 1
     name: ToDo
     color: orange
+    htmlID: toDo
 
   - id: 2
     name: In Progress
     color: lightskyblue
+    htmlID: inProgress
 
   - id: 3
     name: Done
     color: limegreen
+    htmlID: done
 
 # Server Configuration
 port: 9000
