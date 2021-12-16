@@ -26,7 +26,6 @@ async function renderBoard() {
     const Boards = await getColumns();
     const boardParent = document.getElementById('kanbanBoard');
     let boardKanban = '';
-    console.log(Boards);
     Boards.forEach(board => {
         if (board.id == 1) {
             const name = renderKanbanLayout(board);
@@ -47,12 +46,14 @@ async function renderBoard() {
 // Render the Layout of the Board
 function renderKanbanLayout(kanban) {
     // ToDo change this when backend not implemented ID for HTML
-    console.log(kanban);
+    console.log(kanban.name);
     return`
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <div class="cards-body">
+                <h2>
+                    ${kanban.name}
+                </h2>
                 <div id="${kanban.htmlID}">
-                    <h2>"${kanban.name}"</h2>
                 </div>
                 <div class="add-wrapper">
                     <a class="add-icon icon" data-toggle="modal" data-target="#taskModal" data-state="${kanban.name}">

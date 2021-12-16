@@ -4,12 +4,9 @@ import { getAllCards, getCardById, createCard, updateCard, deleteCard, getColumn
 
 const app = new _application();
 const router = new _router();
-// const send = new _send();
 await loadConfig('./config.yml');
 
 router.get('/', async (context: _context)  => {
-    // TODO: Remove this after development!!!
-    console.log('Server running')
     context.response.body =  await Deno.readTextFile("../YeetBoard.Frontend/index.html");
     })
     .get('/cards', getAllCards)

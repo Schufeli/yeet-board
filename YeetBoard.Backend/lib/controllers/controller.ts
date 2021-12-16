@@ -15,7 +15,6 @@ export const getCardById = ({ params, response }: { params: { id: string }; resp
 
 export const createCard = async ({ request, response }: { request: any; response: any }) => {
     const card: Card = await request.body().value;
-    console.log("creating", card);
     card.id = _uuid.generate();
     cardRepository.add(card);
     response.status = 201;
@@ -24,7 +23,6 @@ export const createCard = async ({ request, response }: { request: any; response
 
 export const updateCard = async ({ request, response }: { request: any; response: any }) => {
     const card: Card = await request.body().value;
-    console.log(card)
     cardRepository.update(card);
     response.status = 200;
     response.body = card;
