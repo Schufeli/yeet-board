@@ -3,6 +3,6 @@
 Kanban Board Project for M133$
 
 ## Run project
-*need to be run in repo root*
+*Command needs to be run inside the YeetBoard.Backend folder*
 
 ``` deno run --allow-net --allow-read mod.ts ```
