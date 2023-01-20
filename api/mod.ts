@@ -7,7 +7,7 @@ const router = new _router();
 await loadConfig('./config.yml');
 
 router.get('/', async (context: _context)  => {
-    context.response.body =  await Deno.readTextFile("../YeetBoard.Frontend/index.html");
+    context.response.body =  await Deno.readTextFile("../app/index.html");
     })
     .get('/cards', getAllCards)
     .get('/cards/:id', getCardById)
@@ -20,9 +20,11 @@ app.use(router.routes());
 
 router.get('/static/:path+', async (ctx) => {
   await _send(ctx, ctx.request.url.pathname, {
-    root: "../YeetBoard.Frontend/",
+    root: "../app/",
   });
 });
 
 app.use(router.allowedMethods());
+
+console.log(`Server started: http://localhost:${configuration.port}`)
 await app.listen({ port: configuration.port });
