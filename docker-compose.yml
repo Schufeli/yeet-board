@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  deno:
+    container_name: yeet-board
+    image: deno
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    ports:
+      - "9000:9000"
+    volumes:
+      - "./api/config.yml:/config.yml"

@@ -1,0 +1,6 @@
+img/
+.vscode/
+.github/*
+
+*.md
+LICENSE
